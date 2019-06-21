@@ -88,14 +88,14 @@ def processa_arquivo(ano):
     for row in df.to_dict('records'):
         scraperwiki.sqlite.save(unique_keys=['CO_PRD', 'DT_REF', 'NO_ARQUIVO'], data=row)
 
-    print('{} Registros importados com sucesso', len(df))
+    print('{} Registros importados com sucesso'.format(len(df)))
     return True
 
 
 if __name__ == '__main__':
     # rename file
-    if os.path.exists('data.sqlite'):
-        shutil.copy('data.sqlite', 'scraperwiki.sqlite')
+    #if os.path.exists('data.sqlite'):
+        #shutil.copy('data.sqlite', 'scraperwiki.sqlite')
     
     main()
     
