@@ -4,7 +4,7 @@ import os
 import datetime
 import scraperwiki
 import pandas as pd
-import time
+import shutil
 
 
 def main():
@@ -35,13 +35,11 @@ def processa_arquivo(ano):
             url,
             sep=';',
             encoding='latin1',
-            low_memory=True
+            low_memory=False
         )
     except Exception:
         print('Erro ao baixar arquivo', url)
         return False
-
-    print(df.dtypes)
 
     # converte as colunas
     df['OPER_DERIV'] = df['OPER_DERIV'].astype(str)
@@ -68,6 +66,9 @@ def processa_arquivo(ano):
     df['CLASSE_ANBIMA'] = df['CLASSE_ANBIMA'].astype(str)
     df['DISTRIB'] = df['DISTRIB'].astype(str)
     df['POLIT_INVEST'] = df['POLIT_INVEST'].astype(str)
+    df['PRAZO_ATUALIZ_COTA'] = df['PRAZO_ATUALIZ_COTA'].astype(str)
+    df['COTA_EMISSAO'] = df['COTA_EMISSAO'].astype(str)
+    df['COTA_PL'] = df['COTA_PL'].astype(str)
     #df[''] = df[''].astype(str)
 
     #return True
@@ -87,14 +88,18 @@ def processa_arquivo(ano):
     for row in df.to_dict('records'):
         scraperwiki.sqlite.save(unique_keys=['CO_PRD', 'DT_REF', 'NO_ARQUIVO'], data=row)
 
-    # rename file
-    time.sleep(5)
-    print('Renomeando arquivo sqlite')
-    os.rename('scraperwiki.sqlite', 'data.sqlite')
-
     print('{} Registros importados com sucesso', len(df))
     return True
 
 
 if __name__ == '__main__':
+    # rename file
+    if os.path.exists('data.sqlite'):
+        shutil.copy('data.sqlite', 'scraperwiki.sqlite')
+    
     main()
+    
+    # rename file
+    print('Renomeando arquivo sqlite')
+    if os.path.exists('scraperwiki.sqlite'):
+        shutil.copy('scraperwiki.sqlite', 'data.sqlite')
