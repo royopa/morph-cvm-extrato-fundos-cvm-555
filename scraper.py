@@ -17,7 +17,7 @@ def main():
     ano_inicial = 2015
     ano_final = int(today.strftime('%Y'))
 
-    for ano in range(ano_inicial, ano_final+1):
+    for ano in reversed(range(ano_inicial, ano_final+1)):
         processa_arquivo(ano)
 
     return True
