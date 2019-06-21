@@ -4,6 +4,7 @@ import os
 import datetime
 import scraperwiki
 import pandas as pd
+import time
 
 
 def main():
