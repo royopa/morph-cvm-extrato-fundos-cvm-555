@@ -94,8 +94,8 @@ def processa_arquivo(ano):
 
 if __name__ == '__main__':
     # rename file
-    #if os.path.exists('data.sqlite'):
-        #shutil.copy('data.sqlite', 'scraperwiki.sqlite')
+    if os.path.exists('data.sqlite'):
+        shutil.copy('data.sqlite', 'scraperwiki.sqlite')
     
     main()
     
