@@ -18,6 +18,7 @@ def main():
     ano_final = int(today.strftime('%Y'))
 
     for ano in reversed(range(ano_inicial, ano_final+1)):
+        print("Processa arquivo {}".format(str(ano)))
         processa_arquivo(ano)
 
     return True
@@ -93,10 +94,6 @@ def processa_arquivo(ano):
 
 
 if __name__ == '__main__':
-    # rename file
-    if os.path.exists('data.sqlite'):
-        shutil.copy('data.sqlite', 'scraperwiki.sqlite')
-    
     main()
     
     # rename file
